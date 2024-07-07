@@ -6,7 +6,7 @@ const Login = ({ onLogin }) => {
   const responseFacebook = async (response) => {
     const { accessToken } = response;
     const userResponse = await axios.post(
-      "http://localhost:5000/api/auth/facebook",
+      "https://localhost:5000/api/auth/facebook",
       { accessToken }
     );
     onLogin({ ...userResponse.data, accessToken });
@@ -15,7 +15,7 @@ const Login = ({ onLogin }) => {
   return (
     <div>
       <FacebookLogin
-        appId="<YOUR_APP_ID>"
+        appId="325263403985214"
         autoLoad={false}
         fields="name,email,picture"
         callback={responseFacebook}
