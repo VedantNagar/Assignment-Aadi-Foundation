@@ -15,7 +15,7 @@ const Pages = ({ accessToken, onPageSelect }) => {
   }, [accessToken]);
 
   return (
-    <div>
+    <div className="m-3 rounded-md">
       <select onChange={(e) => onPageSelect(e.target.value)}>
         <option value="">Select a page</option>
         {pages.map((page) => (

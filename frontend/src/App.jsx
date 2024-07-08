@@ -17,8 +17,13 @@ const App = () => {
   };
 
   return (
-    <div>
-      {!user && <Login onLogin={handleLogin} />}
+    <div className="flex flex-col items-center justify-center min-h-screen bg-blue-100">
+      {!user && (
+        <div className="flex flex-col items-center bg-white p-12 rounded-lg shadow-md">
+          <h2 className="mb-4 text-xl text-gray-700 font-bold">Welcome!</h2>
+          <Login onLogin={handleLogin} />
+        </div>
+      )}
       {user && <Profile user={user} />}
       {user && (
         <Pages accessToken={user.accessToken} onPageSelect={handlePageSelect} />
