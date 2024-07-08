@@ -6,7 +6,29 @@ const cors = require("cors");
 
 const app = express();
 app.use(bodyParser.json());
-app.use(cors());
+const allowedOrigins = [
+  "http://localhost:5173",
+  "http://localhost:5174",
+  "https://localhost:5174",
+  "http://localhost:8000",
+  "https://food-delivery-application-x68l.onrender.com",
+  "https://kshitij-fudo-app.onrender.com",
+  "https://fudo-w568.onrender.com",
+];
+
+const corsOptions = {
+  origin: (origin, callback) => {
+    if (allowedOrigins.includes(origin) || !origin) {
+      callback(null, true);
+    } else {
+      callback(new Error("Not allowed by CORS"));
+    }
+  },
+  methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+  optionsSuccessStatus: 204,
+  credentials: true, // Allow credentials like cookies
+};
+app.use(cors(corsOptions));
 
 const PORT = process.env.PORT || 5000;
 
@@ -36,14 +58,30 @@ app.post("/api/pages", async (req, res) => {
 
 app.post("/api/insights", async (req, res) => {
   const { pageId, accessToken, since, until } = req.body;
-  const metrics =
-    "page_fans,page_engaged_users,page_impressions,page_actions_post_reactions_total";
+  const metrics = [
+    "page_fans",
+    "page_engaged_users",
+    "page_impressions",
+    "page_actions_post_reactions_total",
+  ];
+
   try {
     const response = await axios.get(
-      `https://graph.facebook.com/${pageId}/insights?metric=${metrics}&since=${since}&until=${until}&period=total_over_range&access_token=${accessToken}`
+      `https://graph.facebook.com/${pageId}/insights`,
+      {
+        params: {
+          metric: metrics.join(","),
+          since: since,
+          until: until,
+          period: "total_over_range",
+          access_token: accessToken,
+        },
+      }
     );
+    console.log(req.body);
     res.json(response.data);
   } catch (error) {
+    console.log(error.response.data);
     res.status(500).json({ message: "Error fetching insights" });
   }
 });
