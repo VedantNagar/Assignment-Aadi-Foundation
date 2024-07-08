@@ -12,7 +12,7 @@ const Insights = ({ pageId, accessToken }) => {
   useEffect(() => {
     const fetchInsights = async () => {
       const since = Math.floor(
-        new Date().setDate(new Date().getDate() - 7) / 1000
+        new Date().setDate(new Date().getDate() - 31) / 1000 //fetching insights for the last 31 days
       );
       const until = Math.floor(new Date().getTime() / 1000);
       try {
