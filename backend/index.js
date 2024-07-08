@@ -6,6 +6,7 @@ const cors = require("cors");
 
 const app = express();
 app.use(bodyParser.json());
+
 const allowedOrigins = [
   "http://localhost:5173",
   "https://localhost:5173",
@@ -30,6 +31,9 @@ const corsOptions = {
   credentials: true, // Allow credentials like cookies
 };
 app.use(cors(corsOptions));
+
+app.use("/", express.static("../frontend/dist"));
+app.use("/assets", express.static("../frontend/dist/assets"));
 
 app.post("/api/auth/facebook", async (req, res) => {
   const { accessToken } = req.body;
@@ -84,6 +88,8 @@ app.post("/api/insights", async (req, res) => {
     res.status(500).json({ message: "Error fetching insights" });
   }
 });
+
+app.use("/*", express.static("../frontend/dist/index.html"));
 
 const PORT = process.env.PORT || 5000;
 const start = async () => {
