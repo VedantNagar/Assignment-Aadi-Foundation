@@ -79,11 +79,14 @@ app.post("/api/insights", async (req, res) => {
         },
       }
     );
-    console.log(req.body);
     res.json(response.data);
   } catch (error) {
-    console.log(error.response.data);
-    res.status(500).json({ message: "Error fetching insights" });
+    if (error.response && error.response.data && error.response.data.error) {
+      const errorMessage = error.response.data.error.message;
+      res.status(400).json({ message: errorMessage });
+    } else {
+      res.status(500).json({ message: "Error fetching insights" });
+    }
   }
 });
 
