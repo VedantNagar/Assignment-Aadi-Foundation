@@ -7,9 +7,12 @@ const Pages = ({ accessToken, onPageSelect }) => {
 
   useEffect(() => {
     const fetchPages = async () => {
-      const response = await axios.post("http://localhost:5000/api/pages", {
-        accessToken,
-      });
+      const response = await axios.post(
+        "https://assignment-aadi-foundation-2.onrender/api/pages",
+        {
+          accessToken,
+        }
+      );
       setPages(response.data.data);
     };
     fetchPages();
