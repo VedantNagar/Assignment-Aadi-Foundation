@@ -64,6 +64,8 @@ app.post("/api/insights", async (req, res) => {
     "page_post_engagements",
     "page_impressions_paid",
     "page_daily_follows_unique",
+    "page_impressions_unique",
+    "page_views_total",
   ];
   console.log(userId);
   let pageAccessToken;
@@ -84,9 +86,10 @@ app.post("/api/insights", async (req, res) => {
       {
         params: {
           metric: metrics.join(","),
+          fields: metrics.join(","),
           since: since,
           until: until,
-          period: "total_over_range",
+          period: "month",
           access_token: pageAccessToken,
         },
       }

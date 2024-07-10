@@ -24,7 +24,7 @@ const Login = ({ onLogin }) => {
             appId="325263403985214"
             onSuccess={responseFacebook}
             onFailure={(error) => console.error("Login failed:", error)}
-            scope="public_profile,email,pages_show_list,pages_read_engagement"
+            scope="public_profile,email,pages_show_list,pages_read_engagement,read_insights"
             fields="name,email,picture"
             render={({ onClick, isDisabled }) => (
               <button
