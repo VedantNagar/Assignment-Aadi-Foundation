@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 
-const Insights = ({ pageId, accessToken }) => {
+const Insights = ({ pageId, accessToken, userId }) => {
   const [insights, setInsights] = useState({
     page_daily_follows_unique: 0, //followers
     page_post_engagements: 0, //engagements
@@ -20,6 +20,7 @@ const Insights = ({ pageId, accessToken }) => {
         const response = await axios.post(
           "https://assignment-aadi-foundation-2.onrender.com/api/insights",
           {
+            userId,
             pageId,
             accessToken,
             since,

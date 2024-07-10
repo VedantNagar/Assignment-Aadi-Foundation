@@ -29,7 +29,11 @@ const App = () => {
         <Pages accessToken={user.accessToken} onPageSelect={handlePageSelect} />
       )}
       {user && pageId && (
-        <Insights pageId={pageId} accessToken={user.accessToken} />
+        <Insights
+          pageId={pageId}
+          accessToken={user.accessToken}
+          userId={user.id}
+        />
       )}
     </div>
   );

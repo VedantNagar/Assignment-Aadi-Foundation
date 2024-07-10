@@ -58,14 +58,26 @@ app.post("/api/pages", async (req, res) => {
 });
 
 app.post("/api/insights", async (req, res) => {
-  const { pageId, accessToken, since, until } = req.body;
+  const { pageId, accessToken, since, until, userId } = req.body;
   const metrics = [
     "page_fans",
-    "page_engaged_users",
-    "page_impressions",
-    "page_actions_post_reactions_total",
+    "page_post_engagements",
+    "page_impressions_paid",
+    "page_daily_follows_unique",
   ];
-
+  console.log(userId);
+  let pageAccessToken;
+  try {
+    const response = await axios.get(
+      `https://graph.facebook.com/${userId}/accounts?access_token=${accessToken}`
+    );
+    pageAccessToken = response.data.data.find(
+      (page) => page.id === pageId
+    ).access_token;
+    console.log(pageAccessToken);
+  } catch (error) {
+    console.log(error);
+  }
   try {
     const response = await axios.get(
       `https://graph.facebook.com/${pageId}/insights`,
@@ -75,7 +87,7 @@ app.post("/api/insights", async (req, res) => {
           since: since,
           until: until,
           period: "total_over_range",
-          access_token: accessToken,
+          access_token: pageAccessToken,
         },
       }
     );

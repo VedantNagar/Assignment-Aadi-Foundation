@@ -9,6 +9,7 @@ const Login = ({ onLogin }) => {
       "https://assignment-aadi-foundation-2.onrender.com/api/auth/facebook",
       { accessToken }
     );
+    console.log(userResponse.data);
     onLogin({ ...userResponse.data, accessToken });
   };
 
