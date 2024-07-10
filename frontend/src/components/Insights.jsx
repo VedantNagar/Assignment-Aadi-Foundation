@@ -3,10 +3,10 @@ import axios from "axios";
 
 const Insights = ({ pageId, accessToken }) => {
   const [insights, setInsights] = useState({
-    page_fans: 0,
-    page_engaged_users: 0,
-    page_impressions: 0,
-    page_actions_post_reactions_total: 0,
+    page_daily_follows_unique: 0, //followers
+    page_post_engagements: 0, //engagements
+    page_impressions_paid: 0, //impressions
+    page_fans: 0, //likes
   });
   const [error, setError] = useState(null);
 
@@ -59,25 +59,25 @@ const Insights = ({ pageId, accessToken }) => {
             <div className="bg-blue-100 p-4 rounded-lg flex flex-col justify-center">
               <h3 className="text-lg font-semibold">Total Followers</h3>
               <p className="text-3xl font-bold text-blue-600 text-center">
-                {insights.page_fans}
+                {insights.page_daily_follows_unique}
               </p>
             </div>
             <div className="bg-green-100 p-4 rounded-lg flex flex-col justify-center">
               <h3 className="text-lg font-semibold">Total Engagement</h3>
               <p className="text-3xl font-bold text-green-600 text-center">
-                {insights.page_engaged_users}
+                {insights.page_post_engagements}
               </p>
             </div>
             <div className="bg-yellow-100 p-4 rounded-lg flex flex-col justify-center">
               <h3 className="text-lg font-semibold">Total Impressions</h3>
               <p className="text-3xl font-bold text-yellow-600 text-center">
-                {insights.page_impressions}
+                {insights.page_impressions_paid}
               </p>
             </div>
             <div className="bg-purple-100 p-4 rounded-lg flex flex-col justify-center">
               <h3 className="text-lg font-semibold">Total Reactions</h3>
               <p className="text-3xl font-bold text-purple-600 text-center">
-                {insights.page_actions_post_reactions_total}
+                {insights.page_fans}
               </p>
             </div>
           </div>
@@ -87,25 +87,25 @@ const Insights = ({ pageId, accessToken }) => {
           <div className="bg-blue-100 p-4 rounded-lg flex flex-col justify-center">
             <h3 className="text-lg font-semibold">Total Followers</h3>
             <p className="text-3xl font-bold text-blue-600 text-center">
-              {insights.page_fans}
+              {insights.page_daily_follows_unique}
             </p>
           </div>
           <div className="bg-green-100 p-4 rounded-lg flex flex-col justify-center">
             <h3 className="text-lg font-semibold">Total Engagement</h3>
             <p className="text-3xl font-bold text-green-600 text-center">
-              {insights.page_engaged_users}
+              {insights.page_post_engagements}
             </p>
           </div>
           <div className="bg-yellow-100 p-4 rounded-lg flex flex-col justify-center">
             <h3 className="text-lg font-semibold">Total Impressions</h3>
             <p className="text-3xl font-bold text-yellow-600 text-center">
-              {insights.page_impressions}
+              {insights.page_impressions_paid}
             </p>
           </div>
           <div className="bg-purple-100 p-4 rounded-lg flex flex-col justify-center">
             <h3 className="text-lg font-semibold">Total Reactions</h3>
             <p className="text-3xl font-bold text-purple-600 text-center">
-              {insights.page_actions_post_reactions_total}
+              {insights.page_fans}
             </p>
           </div>
         </div>
