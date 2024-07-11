@@ -3,9 +3,9 @@ import axios from "axios";
 
 const Insights = ({ pageId, accessToken, userId }) => {
   const [insights, setInsights] = useState({
-    page_daily_follows_unique: 0, //followers
+    page_follows: 0, //followers
     page_post_engagements: 0, //engagements
-    page_impressions_paid: 0, //impressions
+    page_views_total: 0, //week views
     page_fans: 0, //likes
   });
   const [error, setError] = useState(null);
@@ -19,7 +19,6 @@ const Insights = ({ pageId, accessToken, userId }) => {
       try {
         const response = await axios.post(
           "https://assignment-aadi-foundation-2.onrender.com/api/insights",
-          /* "http://localhost:5000/api/insights", */
           {
             userId,
             pageId,
@@ -28,10 +27,15 @@ const Insights = ({ pageId, accessToken, userId }) => {
             until,
           }
         );
-        setInsights((prevInsights) => ({
-          ...prevInsights,
-          ...response.data.data,
-        }));
+
+        const data = response.data.data.reduce((acc, item) => {
+          const metricName = item.name;
+          const latestValue = item.values[item.values.length - 1].value;
+          acc[metricName] = latestValue;
+          return acc;
+        }, {});
+
+        setInsights(data);
         setError(null);
       } catch (error) {
         if (
@@ -57,39 +61,13 @@ const Insights = ({ pageId, accessToken, userId }) => {
           <div className="text-red-500 text-center">
             Page Insights data is only available on Pages with 100 or more likes
           </div>
-          <div className="grid grid-cols-2 gap-4">
-            <div className="bg-blue-100 p-4 rounded-lg flex flex-col justify-center">
-              <h3 className="text-lg font-semibold">Total Followers</h3>
-              <p className="text-3xl font-bold text-blue-600 text-center">
-                {insights.page_daily_follows_unique}
-              </p>
-            </div>
-            <div className="bg-green-100 p-4 rounded-lg flex flex-col justify-center">
-              <h3 className="text-lg font-semibold">Total Engagement</h3>
-              <p className="text-3xl font-bold text-green-600 text-center">
-                {insights.page_post_engagements}
-              </p>
-            </div>
-            <div className="bg-yellow-100 p-4 rounded-lg flex flex-col justify-center">
-              <h3 className="text-lg font-semibold">Total Impressions</h3>
-              <p className="text-3xl font-bold text-yellow-600 text-center">
-                {insights.page_impressions_paid}
-              </p>
-            </div>
-            <div className="bg-purple-100 p-4 rounded-lg flex flex-col justify-center">
-              <h3 className="text-lg font-semibold">Total Reactions</h3>
-              <p className="text-3xl font-bold text-purple-600 text-center">
-                {insights.page_fans}
-              </p>
-            </div>
-          </div>
         </>
       ) : (
         <div className="grid grid-cols-2 gap-4">
           <div className="bg-blue-100 p-4 rounded-lg flex flex-col justify-center">
             <h3 className="text-lg font-semibold">Total Followers</h3>
             <p className="text-3xl font-bold text-blue-600 text-center">
-              {insights.page_daily_follows_unique}
+              {insights.page_follows}
             </p>
           </div>
           <div className="bg-green-100 p-4 rounded-lg flex flex-col justify-center">
@@ -99,13 +77,13 @@ const Insights = ({ pageId, accessToken, userId }) => {
             </p>
           </div>
           <div className="bg-yellow-100 p-4 rounded-lg flex flex-col justify-center">
-            <h3 className="text-lg font-semibold">Total Impressions</h3>
+            <h3 className="text-lg font-semibold">Views this Week</h3>
             <p className="text-3xl font-bold text-yellow-600 text-center">
-              {insights.page_impressions_paid}
+              {insights.page_views_total}
             </p>
           </div>
           <div className="bg-purple-100 p-4 rounded-lg flex flex-col justify-center">
-            <h3 className="text-lg font-semibold">Total Reactions</h3>
+            <h3 className="text-lg font-semibold">Total Likes</h3>
             <p className="text-3xl font-bold text-purple-600 text-center">
               {insights.page_fans}
             </p>

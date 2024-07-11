@@ -82,8 +82,8 @@ app.post("/api/insights", async (req, res) => {
   }
   try {
     const response = await axios.get(
-      `https://graph.facebook.com/${pageId}/insights`,
-      {
+      `https://graph.facebook.com/${pageId}/insights?metric=page_follows,page_post_engagements,page_views_total,page_fans&access_token=${pageAccessToken}`
+      /*       {
         params: {
           metric: metrics.join(","),
           fields: metrics.join(","),
@@ -92,7 +92,7 @@ app.post("/api/insights", async (req, res) => {
           period: "month",
           access_token: pageAccessToken,
         },
-      }
+      } */
     );
     res.json(response.data);
   } catch (error) {
