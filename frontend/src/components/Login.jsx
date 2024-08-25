@@ -6,7 +6,7 @@ const Login = ({ onLogin }) => {
   const responseFacebook = async (response) => {
     const { accessToken } = response.authResponse;
     const userResponse = await axios.post(
-      "https://assignment-aadi-foundation-2.onrender.com/api/auth/facebook",
+      "https://assignment-aadi-foundation-1.onrender.com/api/auth/facebook",
       { accessToken }
     );
     console.log(userResponse.data);

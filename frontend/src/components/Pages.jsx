@@ -8,7 +8,7 @@ const Pages = ({ accessToken, onPageSelect }) => {
   useEffect(() => {
     const fetchPages = async () => {
       const response = await axios.post(
-        "https://assignment-aadi-foundation-2.onrender.com/api/pages",
+        "https://assignment-aadi-foundation-1.onrender.com/api/pages",
         {
           accessToken,
         }

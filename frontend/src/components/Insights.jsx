@@ -18,7 +18,7 @@ const Insights = ({ pageId, accessToken, userId }) => {
       const until = Math.floor(new Date().getTime() / 1000);
       try {
         const response = await axios.post(
-          "https://assignment-aadi-foundation-2.onrender.com/api/insights",
+          "https://assignment-aadi-foundation-1.onrender.com/api/insights",
           {
             userId,
             pageId,

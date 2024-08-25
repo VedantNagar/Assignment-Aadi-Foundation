@@ -13,8 +13,8 @@ const allowedOrigins = [
   "http://localhost:5174",
   "https://localhost:5174",
   "http://localhost:8000",
-  "https://assignment-aadi-foundation-2.onrender.com",
-  "https://assignment-aadi-foundation-1.onrender.com/",
+  "https://assignment-aadi-foundation-1.onrender.com",
+  "https://assignment-aadi-foundation-1.onrender.com",
 ];
 
 const corsOptions = {
